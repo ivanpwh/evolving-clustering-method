@@ -12,20 +12,17 @@ def ECM(data, dthr):
 	D_ij = []
 	S_ij = []
 	data_len = len(data)
-	#Cc_j_len = len(Cc_j)
 	n_ru = 0
 	n_c = 0
 
 	for i in range(1,data_len):
 		for j in range(0,len(Cc_j)):
-
 			cossim = 1 - spatial.distance.cosine(data[i], Cc_j[j])
 			D_ij.append(cossim)
 			Min_D = min(D_ij)
 			print 'cos',data[i] ,'dan', Cc_j[j],'=',cossim
 			print 'D_ij', D_ij
 			print "min D_ij",Min_D
-
 		if D_ij <= Ru_j: 
 			# do nothing
 			pass
@@ -37,11 +34,7 @@ def ECM(data, dthr):
 			index = 2 * dthr
 			print 'S_ij =',Ru_j,'+',Min_D,'=',S_ij 
 			print 'min S_ij', Min_S
-
 			if Min_S > index:
-				#print 'index', i
-				#Cc_j.append(i)
-				#Ru_j.append([0])
 				Ru_j[j].insert(i,0)
 				print 'new ru',Ru_j
 				Cc_j.append(data[i])
@@ -50,45 +43,31 @@ def ECM(data, dthr):
 				print 'Cluster', Cluster
 				print ' '	
 				pass
-
 			elif Min_S <= index:	
 				temp = Min_S / 2
-				#if x in Ru_j[j]:
 				Ru_j[n_ru].remove(x)
 				Ru_j[n_ru].insert(i,temp)
 				n_ru = n_ru + 1
-				#Ru_j.pop()
-				#Ru_j.append(temp)
 				Ru_j.append([])
 				print 'new ru',Ru_j
-				#numpy.append(Cluster[j],i)
 				Cc_j.append(data[i])
-				#Cc_j.append([])
 				print 'new cc',Cc_j
 				Cluster[n_c].append(i)
 				n_c = n_c + 1
 				Cluster.append([])
 				print 'Cluster', Cluster
 				print ' '	
-				#temp = S_ij * 0.5 
-				#print temp
-				#Ru_j.append(temp)
-				#Ru_j.pop(n_c)
-				#Ru_j.insert(n_c,0.5)
-				#print Ru_j
 				pass
-
-	#print D_ij
 
 data = [[1,1],[2,2],[1,3],[5,4]]
 
 ECM(data,0.5)
 
-items = [1, 2, 3, 4, 5]
-squared = list(map(lambda x: x**2, items))
+#items = [1, 2, 3, 4, 5]
+#squared = list(map(lambda x: x**2, items))
 #print squared
 
-result = 1 - spatial.distance.cosine([1, 0, -1], [-1,-1, 0])
+#result = 1 - spatial.distance.cosine([1, 0, -1], [-1,-1, 0])
 #print result
 
 #from sklearn.metrics.pairwise import cosine_similarity
